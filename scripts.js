@@ -9,17 +9,17 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
     grid.push([]);
     for(let j = 0; j < 6; j++){
-      grid[i].push("-");
+      grid[i].push("-"); //Fill empty grid
     }
   }
   for(let i = 0; i < 6; i++){
     for(let j = 0; j < 7; j++){
-      document.body.innerHTML += "<div class=\"square\" id = \"" + j + i + "\"></div>";
+      document.body.innerHTML += "<div class=\"square\" id = \"" + j + i + "\"></div>"; //Fill DOM with squares
     }
     document.body.innerHTML += "<br>";
   }
   for(let i = 0; i < 7; i++){
-    document.body.innerHTML += "<button type=\"button\" id =\"" + i + "\">";
+    document.body.innerHTML += "<button type=\"button\" id =\"" + i + "\">"; //Add the buttons
   }
   document.body.innerHTML += "<p id=\"turn\">Turn 1: blue</p>";
   document.addEventListener("click", (e)=>{
@@ -43,12 +43,12 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 function drop(symbol, slot, board, isComp){
   if(board[slot][5] != "-"){
-    return(0)
+    return(0) //if the top of the column is full
   }
   else{
     let cur = 5;
     while(board[slot][cur-1] == "-" && cur > 0){
-      cur--;
+      cur--; //Move down the column and then fill in the grid and the html squares
     }
     board[slot][cur] = symbol;
     cur = 5-cur;
@@ -70,7 +70,7 @@ function checkWin(symbol, board){
         while(j + 1 < 7 && board[j+1][i] == symbol){
           cur += 1;
           if(cur == 4){
-            return(true);
+            return(true); //4 in a row on the same row.
           }
           j += 1;
         }
@@ -80,17 +80,18 @@ function checkWin(symbol, board){
         while(i + 1 < 6 && board[j][i+1] == symbol){
           cur += 1
           if(cur == 4){
-            return(true);
+            return(true);//4 in a row on the same column
           }
           i += 1;
         }
+
         cur = 1;
         j = col;
         i = row;
         while(i + 1 < 6 && j + 1 < 7 && board[j+1][i+1] == symbol){
           cur += 1;
           if(cur == 4){
-            return(true);
+            return(true); //4 in a row, upper right.
           }
           i += 1;
           j += 1;
@@ -101,7 +102,7 @@ function checkWin(symbol, board){
         while(i + 1 < 6 && j - 1 > 0 && board[j-1][i+1] == symbol){
           cur += 1;
           if(cur == 4){
-            return(true);
+            return(true); // 4 in a row upper left
           }
         i += 1;
         j -= 1;
